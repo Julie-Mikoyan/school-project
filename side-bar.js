@@ -1,4 +1,4 @@
-const allSideMenu = document.querySelectorAll('#sidebar .side-menu li a');
+const allSideMenu = document.querySelectorAll('#sidebar .side-menu.top li a');
 
 allSideMenu.forEach(item=> {
     const li = item.parentElement;
@@ -10,3 +10,4 @@ allSideMenu.forEach(item=> {
         li.classList.add('active');
     })
 });
+
