@@ -32,6 +32,12 @@ li {
     height: 100%;
     background: white;
     z-index: 1000;
+    transition: .3s ease;
+    overflow-x: hidden;
+}
+
+#sidebar.hide {
+    width: 60px;
 }
 
 #sidebar .brand {
@@ -72,7 +78,7 @@ li {
 }
 
 #sidebar .side-menu.top li a:hover {
-    color: red;
+    color: blue;
 }
 
 #sidebar .side-menu li.active::before{
@@ -108,6 +114,17 @@ li {
     border-radius: 48px;
     font-size: 16px;
     color: black;
+    white-space: nowrap;
+    overflow-x: hidden;
+}
+
+#sidebar.hide .side-menu li.active a {
+    color: blue;
+}
+
+#sidebar.hide .side-menu li a {
+    width: calc(48px - (4px * 2));
+    transition: width .3s ease;
 }
 
 #sidebar .side-menu li a .bx{
@@ -116,10 +133,16 @@ li {
     justify-content: center;
 }
 
+#sidebar.hide ~ #content {
+    width: calc(100% - 60px);
+    left: 60px;
+} 
+
 #content {
     position: relative;
     width: calc(100% - 280px);
     left: 280px;
+    transition: .3s ease;
 }
 
 #content nav {
@@ -218,3 +241,173 @@ li {
     justify-content: center;
     align-items: center;
 }
+
+#content main {
+    width: 100%;
+    padding: 36px 24px;
+    font-family: 'Arial', sans-serif;
+}
+
+#content main .head-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    grid-gap: 16px;
+    flex-wrap: wrap;
+}
+
+#content main .head-title .left h1 {
+    font-size: 36px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: black; 
+}
+
+#content main .head-title .left .breadcrumb {
+    display: flex;
+    align-items: center;
+    grid-gap: 16px;
+    background-color: aliceblue;
+}
+
+#content main .head-title .left .breadcrumb li a {
+    color: darkgrey;
+    pointer-events: none;
+    text-decoration: none;
+}
+
+#content main .head-title .left .breadcrumb li a.active {
+    color: blue;
+    pointer-events: unset;
+}
+
+#content main .head-title .btn-download {
+    height: 36px;
+    padding: 0 16px;
+    border-radius: 36px;
+    background-color: lightblue;
+    color: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    grid-gap: 10px;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+
+.overview-cards {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    margin: 20px 0;
+}
+
+.overview-card {
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    flex: 1 1 200px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.project-progress-chart {
+    margin: 20px 0;
+    width: 100%;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.task-management-section {
+    margin: 20px 0;
+}
+
+.task-list {
+    list-style: none;
+    padding: 0;
+}
+
+.task-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.task-item:last-child {
+    border-bottom: none;
+}
+
+.site-activity-log {
+    margin: 20px 0;
+}
+
+.activity-log-item {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.activity-log-item:last-child {
+    border-bottom: none;
+}
+
+.quick-access-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin: 20px 0;
+}
+
+.quick-access-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.quick-access-button:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+
+
+@media screen and (max-width: 768px) {
+    #content {
+        width: calc(100% - 60px);
+    }
+    #content nav .nav-link {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 576px) {
+    
+    #content nav form .form-input input {
+        display: none;
+    }
+    #content nav form .form-input button {
+        width: auto;
+        height: auto;
+        background: transparent;
+        border-radius: none;
+        color: black;
+    }
+    #content nav form.show .form-input input {
+        display: block;
+        width: 100%;
+    }
+    #content nav form.show .form-input button {
+        width: 360px;
+        height: 100%;
+        border-radius: 0 36px 36px 0;
+        color: white;
+        background-color: red;
+    }
+    #content nav form.show ~ .notification {
+        display: none;
+    }
+}
+

@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 if (!isset($_SESSION["name"])) {
-    $_SESSION["name"] = "User  ";
+    $_SESSION["name"] = "User   ";
 }
 ?>
 
@@ -83,8 +83,98 @@ if (!isset($_SESSION["name"])) {
         <span class="num">8</span>
         </a>
     </nav>
+
+    <main>
+        <div class="head-title">
+            <div class="left">
+                <h1>Dashboard</h1>
+                <ul class="breadcrumb">
+                    <li>
+                        <a href="#">Dashboard</a>
+                    </li>
+                    <li><i class='bx bx-chevron-right' ></i></li>
+                    <li>
+                        <a class="active" href="#">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <a href="#" class="btn-download">
+                <i class='bx bxs-cloud-download' ></i>
+                <span class="text">Download PDF</span>
+            </a>
+        </div>
+
+        <div class="overview-cards">
+            <div class="overview-card">
+                <h3>Projects in Progress</h3>
+                <p>5</p>
+            </div>
+            <div class="overview-card">
+                <h3>Completed Projects</h3>
+                <p>10</p>
+            </div>
+            <div class="overview-card">
+                <h3>Pending Tasks</h3>
+                <p>3</p>
+            </div>
+            <div class="overview-card">
+                <h3>Ongoing Issues</h3>
+                <p>2</p>
+            </div>
+        </div>
+
+        <div class="project-progress-chart">
+            <canvas id="progressChart"></canvas>
+        </div>
+
+        <div class="task-management-section">
+            <h2>Task Management</h2>
+            <ul class="task-list">
+                <li class="task-item">Upcoming Task 1</li>
+                <li class="task-item">Overdue Task 1</li>
+                <li class="task-item">Completed Task 1</li>
+            </ul>
+        </div>
+
+        <div class="site-activity-log">
+            <h2>Site Activity Log</h2>
+            <div class="activity-log-item">🏗️ John updated Project X’s budget.</div>
+            <div class="activity-log-item">📑 Sarah submitted a safety report.</div>
+            <div class="activity-log-item">🔧 Mike completed maintenance on equipment.</div>
+        </div>
+
+        <div class="quick-access-buttons">
+            <button class="btn btn-primary">Add New Project</button>
+            <button class="btn btn-secondary">View All Tasks</button>
+            <button class="btn btn-success">Generate Report</button>
+        </div>
+    </main>
    </section>
 
+   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
    <script src="side-bar.js"></script>
+   <script>
+       const ctx = document.getElementById('progressChart').getContext('2d');
+       const progressChart = new Chart(ctx, {
+           type: 'bar',
+           data: {
+               labels: ['Project A', 'Project B', 'Project C'],
+               datasets: [{
+                   label: 'Progress (%)',
+                   data: [75, 50, 90],
+                   backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                   borderColor: 'rgba(75, 192, 192, 1)',
+                   borderWidth: 1
+               }]
+           },
+           options: {
+               scales: {
+                   y: {
+                       beginAtZero: true
+                   }
+               }
+           }
+       });
+   </script>
 </body>
 </html>
