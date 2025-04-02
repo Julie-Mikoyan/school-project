@@ -1,6 +1,6 @@
 <?php
 session_start();
-require 'database_connection.php';
+require 'database.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'];

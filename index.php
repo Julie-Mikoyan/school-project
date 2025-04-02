@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 if (!isset($_SESSION["name"])) {
-    $_SESSION["name"] = "User   ";
+    $_SESSION["name"] = "User    ";
 }
 ?>
 
@@ -18,7 +18,7 @@ if (!isset($_SESSION["name"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Construction Site Management Systems</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="side-bar.css">
+    <link rel="stylesheet" href="index.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
@@ -30,39 +30,45 @@ if (!isset($_SESSION["name"])) {
     </a>
     <ul class="side-menu top">
         <li class="active">
-            <a href="#">
+            <a href="index.php">
             <i class='bx bxs-dashboard' ></i>
             <span class="text">Dashboard</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="projects.php">
             <i class='bx bx-buildings' ></i>
             <span class="text">Projects</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="tasks.php">
             <i class='bx bx-check-square' ></i>
             <span class="text">Tasks</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="progress.php">
             <i class='bx bx-bar-chart-square' ></i>
             <span class="text">Progress</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="report.php">
             <i class='bx bx-file' ></i>
             <span class="text">Report</span>
             </a>
         </li>
         <li>
-            <a href="#">
+            <a href="settings.php">
             <i class='bx bx-cog' ></i>
             <span class="text">Settings</span>
+            </a>
+        </li>
+        <li>
+            <a href="logout.php">
+            <i class='bx bx-log-out'></i>
+            <span class="text">Logout</span>
             </a>
         </li>
     </ul>
@@ -94,11 +100,11 @@ if (!isset($_SESSION["name"])) {
                     </li>
                     <li><i class='bx bx-chevron-right' ></i></li>
                     <li>
-                        <a class="active" href="#">Home</a>
+                        <a class="active" href="index.php">Home</a>
                     </li>
                 </ul>
             </div>
-            <a href="#" class="btn-download">
+            <a href="path/to/yourfile.pdf" download="desiredfilename.pdf">
                 <i class='bx bxs-cloud-download' ></i>
                 <span class="text">Download PDF</span>
             </a>
@@ -152,7 +158,7 @@ if (!isset($_SESSION["name"])) {
    </section>
 
    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-   <script src="side-bar.js"></script>
+   <script src="index.js"></script>
    <script>
        const ctx = document.getElementById('progressChart').getContext('2d');
        const progressChart = new Chart(ctx, {

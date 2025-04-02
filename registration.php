@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="registration.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 </head>
 <body>
     <div class="container">
 
-        <?php
+    <?php
         session_start();
 
         require_once "database.php";
@@ -21,22 +21,24 @@
             $email = $_POST["email"];
             $password = $_POST["password"];
             $passwordRepeat = $_POST["repeat_password"];
+            $roleId = $_POST["role_id"];
 
             $passwordHash = password_hash($password, PASSWORD_DEFAULT);
             $error = array();
 
-            if (empty($fullName) OR empty($email) OR empty($password) OR empty($passwordRepeat)) {
-                array_push($error,"All fields are required");
+            if (empty($fullName) || empty($email) || empty($password) || empty($passwordRepeat) || empty($roleId)) {
+                array_push($error, "All fields are required");
             }
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                array_push($error,"Email is not valid");
+                array_push($error, "Email is not valid");
             }
-            if (strlen($password)<8) {
-                array_push($error,"Password must be at least 8 characters long");
+            if (strlen($password) < 8) {
+                array_push($error, "Password must be at least 8 characters long");
             }
-            if ($password!==$passwordRepeat) {
-                array_push($error,"Password does not match");
+            if ($password !== $passwordRepeat) {
+                array_push($error, "Password does not match");
             }
+
             
             $sql = "SELECT * FROM Users WHERE email = ?";
             $stmt = mysqli_stmt_init($conn);
@@ -48,15 +50,17 @@
                     array_push($error, "Email already exists!");
                 }
             }
+
             
             if (count($error) > 0) {
                 foreach ($error as $err) {
                     echo "<div class='alert alert-danger'>$err</div>";
                 }
             } else {
-                $sql = "INSERT INTO Users (fullname, email, password) VALUES (?, ?, ?)";
+                
+                $sql = "INSERT INTO users (fullname, email, password, role_id) VALUES (?, ?, ?, ?)";
                 if (mysqli_stmt_prepare($stmt, $sql)) {
-                    mysqli_stmt_bind_param($stmt, "sss", $fullName, $email, $passwordHash);
+                    mysqli_stmt_bind_param($stmt, "sssi", $fullName, $email, $passwordHash, $roleId);
                     if (mysqli_stmt_execute($stmt)) {
                         $_SESSION['registration_success'] = "Registration successful! You can now log in.";
                         header("Location: login.php");
@@ -70,30 +74,35 @@
             }
         }
         ?>
-        
-        <form action="registration.php" method="post">
-        <div class="form-group">
-            <input type="text" name="fullname" placeholder="Full Name:">
+        <div class="container">
+            <h2>Register</h2>
+            <form action="registration.php" method="post">
+                <div class="form-group">
+                    <input type="text" name="fullname" placeholder="Full Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="password" placeholder="Password" required>
+                </div>
+                <div class="form-group">
+                    <input type="password" name="repeat_password" placeholder="Repeat Password" required>
+                </div>
+                <div class="form-group">
+                <select name="role_id" required style="width: 100%; height: 40px; justify-content: center; color: grey; padding: 10px; border: 1px solid #93c5fd; border-radius: 8px; font-size: 16px; background-color: white; box-sizing: border-box; appearance:none;">
+                        <option value="">Select Role</option>
+                        <option value="1">Construction Consultant</option>
+                        <option value="2">Subcontractor</option>
+                        <option value="3">Project Manager</option>
+                        <option value="4">Worker</option>
+                    </select>
+                </div>
+                <div class="form-btn">
+                    <input type="submit" value="Register" name="submit">
+                </div>
+            </form>
         </div>
-        <div class="form-group">
-            <input type="email" name="email" placeholder="Email:">
-        </div>
-        <div class="form-group input-group">
-        <input type="password" name="password" placeholder="Password:" class="form-control" required id="password">
-        <span class="toggle-password" onclick="togglePassword()">
-            <i class="bi bi-eye" id="eye-icon"></i>
-        </span>
-        </div>
-        <div class="form-group input-group">
-        <input type="password" name="repeat_password" placeholder="Repeat Password:" class="form-control" required id="repeat_password">
-        <span class="toggle-password" onclick="toggleRepeatPassword()">
-            <i class="bi bi-eye" id="repeat-eye-icon"></i>
-        </span>
-        </div>
-        <div class="form-btn">
-        <input type="submit" value="Register" name="submit" class="btn btn-primary">
-        </div>
-        </form>
     </div>
 
     <script>
